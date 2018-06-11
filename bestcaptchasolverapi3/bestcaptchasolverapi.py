@@ -96,11 +96,11 @@ class BestCaptchaSolverAPI:
     def GET(self, url):
         r = self._session.get(url, headers=self._headers, timeout=self._timeout, verify=SSL_VERIFY)
         js = json.loads(r.text)
-        if js['status'] == 'error': raise Exception(js['message'])
+        if js['status'] == 'error': raise Exception(js['error'])
         return js
 
     def POST(self, url, data):
         r = self._session.post(url, data=data, headers=self._headers, timeout=self._timeout, verify=SSL_VERIFY)
         js = json.loads(r.text)
-        if js['status'] == 'error': raise Exception(js['message'])
+        if js['status'] == 'error': raise Exception(js['error'])
         return js
