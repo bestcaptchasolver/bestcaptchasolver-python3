@@ -59,9 +59,15 @@ completed the captcha. This takes somewhere between 10-80 seconds.
 **Retrieve captcha response (both image and recaptcha)**
 
 ```
-image_text = bcs.retrieve(captcha_id)
-gresponse = bcs.retrieve(recaptcha_id)
+image_text = bcs.retrieve(captcha_id)['text']
+gresponse = bcs.retrieve(recaptcha_id)['gresponse']
 ```
+
+**If submitted with proxy, get proxy status**
+```
+proxy_status = bcs.retrieve(recaptcha_id)['proxy_status']
+```
+
 
 **Set captcha bad**
 

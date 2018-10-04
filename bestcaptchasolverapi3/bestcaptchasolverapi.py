@@ -7,7 +7,7 @@ except:
 import os, json
 from base64 import b64encode
 
-USER_AGENT = 'pythonClient'
+USER_AGENT = 'python3Client'
 BASE_URL = 'https://bcsapi.xyz/api'
 SSL_VERIFY = False
 # endpoints
@@ -78,13 +78,11 @@ class BestCaptchaSolverAPI:
         url = '{}/captcha/{}?access_token={}'.format(BASE_URL, captcha_id, self._access_token)
         resp = self.GET(url)
         try:
-            if resp['status'] == 'pending': return None
+            if resp['status'] == 'pending': return {'text': None, 'gresponse': None}
         except:
             pass
-        try:
-            return resp['gresponse']
-        except:
-            return resp['text']
+
+        return resp
 
     # set captcha bad, if given id, otherwise set the last one
     def set_captcha_bad(self, captcha_id):
