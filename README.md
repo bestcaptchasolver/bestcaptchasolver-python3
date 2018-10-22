@@ -39,20 +39,28 @@ balance = bcs.account_balance()
 **Submit image captcha**
 
 ``` python
-bcs.submit_image_captcha('captcha.jpg', False)    # submit image captcha (case_sensitive param optional)
+bcs.submit_image_captcha({'image': 'your local image or URL', 'case_sensitive': False, 'affiliate_id': 'ID of affiliate'})    # submit image captcha (case_sensitive param optional)
 ```
 The image submission works with both files and b64 encoded strings.
-Also for case-sensitive captchas, the 2nd parameter set to True, will make sure case is taken into account.
+Also for case-sensitive captchas, set the `case_sensitive` parameter to True, will make sure case is taken into account.
+For setting the affiliate_id, set the `affiliate_id` parameter
 
 **Submit recaptcha details**
 
 For recaptcha submission there are two things that are required.
 - page_url
 - site_key
+- type (optional)
+- v3_action (optional)
+- v3_min_score (optional)
+- user_agent (optional)
+- affiliate_id (optional)
 - proxy (optional)
+
 ``` python
-bcs.submit_recaptcha(PAGE_URL, SITE_KEY)   
+bcs.submit_recaptcha({'page_url': 'page_url_here', 'site_key': 'sitekey_here')   
 ```
+
 This method returns a captchaID. This ID will be used next, to retrieve the g-response, once workers have 
 completed the captcha. This takes somewhere between 10-80 seconds.
 

@@ -3,9 +3,9 @@
 from bestcaptchasolverapi3.bestcaptchasolverapi import BestCaptchaSolverAPI
 from time import sleep
 
-ACCESS_TOKEN = 'your_access_token'
-PAGE_URL = 'your_page_url'
-SITE_KEY = 'your_site_key'
+ACCESS_TOKEN = 'access_token_here'
+PAGE_URL = 'page_url_here'
+SITE_KEY = 'site_key_here'
 
 
 # solve captcha
@@ -20,9 +20,12 @@ def test_api():
 
     # solve image captcha
     # --------------------
-    # works with URL as well, if authenticated with token
     print ('Solving image captcha ...')
-    id = bcs.submit_image_captcha('captcha.jpg', False)  # submit image captcha (case_sensitive param optional)
+    data = {}
+    data['image'] = 'captcha.jpg'
+    # data['case_sensitive'] = True #, default: False
+    # data['affiliate_id'] = 'affiliate_id from /account'
+    id = bcs.submit_image_captcha(data)  # submit image captcha (case_sensitive param optional)
     image_text = None
     # None is returned if completion is still in pending
     while image_text == None:
@@ -32,9 +35,23 @@ def test_api():
     print ('Captcha text: {}'.format(image_text))
 
     # solve recaptcha
-    # -----------------------------------------------------------------------------------------------
+    # ---------------
     print ('Solving recaptcha ...')
-    captcha_id = bcs.submit_recaptcha(PAGE_URL, SITE_KEY)  # submit captcha first, to get ID
+    data = {}
+    data['page_url'] = PAGE_URL
+    data['site_key'] = SITE_KEY
+
+    # other parameters
+    # ----------------------------------------------------------------------
+    # data['type'] = 1        # 1 - regular, 2 - invisible, 3 - v3, default 1
+    # data['v3_action'] = 'v3 recaptcha action'
+    # data['v3_min_score'] = '0.3'
+    # data['user_agent'] = 'Your user agent'
+    # data['proxy'] = '123.456.678:3031'
+    # data['proxy'] = 'user:pass@123.456.678:3031'
+    # data['affiliate_id'] = 'affiliate_id from /account'
+    captcha_id = bcs.submit_recaptcha(data)  # submit captcha first, to get ID
+
     # check if it's still in progress (waiting to be solved), every 10 seconds
     print ('Waiting for recaptcha to be solved ...')
     gresponse = None
@@ -44,13 +61,8 @@ def test_api():
         sleep(10)  # sleep for 10 seconds and recheck
 
     print ('Recaptcha response: {}'.format(gresponse))  # print google response
-    #proxy_status = resp['proxy_status']                       # get status of proxy
-
-    # bcs.submit_image_captcha('captcha.jpg', True)    # case sensitive captcha image solving
-    # bcs.submit_recaptcha(PAGE_URL, SITE_KEY, '123.45.67.89:3012')   # solve through proxy
-    # bcs.submit_recaptcha(PAGE_URL, SITE_KEY, 'user:pass@123.45.67.89:3012')  # solve through proxy with auth
+    # proxy_status = resp['proxy_status']                       # get status of proxy
     # bcs.set_captcha_bad(2)    # set captcha with ID 2, bad
-
 
 # main method
 def main():

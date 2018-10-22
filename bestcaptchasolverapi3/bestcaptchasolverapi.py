@@ -37,37 +37,32 @@ class BestCaptchaSolverAPI:
         return '${}'.format(resp['balance'])
 
     # solve normal captcha
-    def submit_image_captcha(self, image_path, case_sensitive = False):
-        data = dict(self._data)
+    def submit_image_captcha(self, opts):
+        data = {}
+        data.update(self._data)
+
+        image_path = opts['image']
+        # case sensitive
+        if 'case_sensitive' in opts:
+            if opts['case_sensitive']: data['case_sensitive'] = '1'
+        # affiliate
+        if 'affiliate_id' in opts:
+            if opts['affiliate_id']: data['affiliate_id'] = opts['affiliate_id']
         url = '{}/captcha/image'.format(BASE_URL)
+
         if os.path.exists(image_path):
             with open(image_path, 'rb') as f:
                 data['b64image'] = b64encode(f.read())
         else:
-            data['b64image'] = image_path       # should be b64 already
-
-        if case_sensitive: data['case_sensitive'] = '1'
+            data['b64image'] = image_path  # should be b64 already
 
         resp = self.POST(url, data)
-        return resp['id']       # return ID
+        return resp['id']  # return ID
 
     # submit recaptcha to system
-    # SET PROXY AS WELL
-    # -------------------
-    # ----------------------------------
-    # ------------------------------
-    def submit_recaptcha(self, page_url, site_key, proxy = None):
-        # data parameters
-        data = dict(self._data)
-        data['page_url'] = page_url
-        data['site_key'] = site_key
-
-        # check proxy and set dict (request params) accordingly
-        if proxy:   # if proxy is given, check proxytype
-            # we have both proxy and type at this point
-            data['proxy'] = proxy
-            data['proxytype'] = 'HTTP'
-
+    def submit_recaptcha(self, data):
+        data.update(self._data)
+        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
         # make request with all data
         url = '{}/captcha/recaptcha'.format(BASE_URL)
         resp = self.POST(url, data)
