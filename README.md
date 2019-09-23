@@ -39,10 +39,20 @@ balance = bcs.account_balance()
 **Submit image captcha**
 
 ``` python
-bcs.submit_image_captcha({'image': 'your local image or URL', 'case_sensitive': False, 'affiliate_id': 'ID of affiliate'})    # submit image captcha (case_sensitive param optional)
+data = {}
+data['image'] = 'captcha.jpg'
+
+# optional parameters
+data['is_case'] = if case sensitive set to True, default: False
+data['is_phrase'] = if phrase, set to True, default: False
+data['is_math'] = True if captcha is math, default: False
+data['alphanumeric'] = 1 (digits only) or 2 (letters only), default: all characters
+data['minlength'] = minimum length of captcha text, default: any
+data['maxlength'] = maximum length of captcha text, default: any
+
+bcs.submit_image_captcha(data)
 ```
 The image submission works with both files and b64 encoded strings.
-Also for case-sensitive captchas, set the `case_sensitive` parameter to True, will make sure case is taken into account.
 For setting the affiliate_id, set the `affiliate_id` parameter
 
 **Submit recaptcha details**
@@ -64,11 +74,33 @@ bcs.submit_recaptcha({'page_url': 'page_url_here', 'site_key': 'sitekey_here')
 This method returns a captchaID. This ID will be used next, to retrieve the g-response, once workers have 
 completed the captcha. This takes somewhere between 10-80 seconds.
 
-**Retrieve captcha response (both image and recaptcha)**
+**Geetest**
+- domain
+- gt
+- challenge
+
+```python
+captcha_id = bcs.submit_geetest({'domain': 'DOMAIN_HERE', 'gt': 'GT_HERE', 'challenge': 'CHALLENGE_HERE'})
+```
+
+Use captcha_id to retrieve `solution` for geetest
+
+**Capy**
+- page_url
+- site_key
+
+```python
+captcha_id = bcs.submit_capy({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'})
+```
+
+Use captcha_id to retrieve `solution` for capy
+
+**Retrieve captcha response (all captchas)**
 
 ```
 image_text = bcs.retrieve(captcha_id)['text']
 gresponse = bcs.retrieve(recaptcha_id)['gresponse']
+solution = bcs.retrieve(captcha_id)['solution']
 ```
 
 **If submitted with proxy, get proxy status**
