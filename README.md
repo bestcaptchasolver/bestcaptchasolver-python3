@@ -95,6 +95,16 @@ captcha_id = bcs.submit_capy({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_
 
 Use captcha_id to retrieve `solution` for capy
 
+**hCaptcha**
+- page_url
+- site_key
+
+```python
+captcha_id = bcs.submit_hcaptcha({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'})
+```
+
+Use captcha_id to retrieve `solution` for hCaptcha
+
 **Retrieve captcha response (all captchas)**
 
 ```

@@ -97,6 +97,15 @@ class BestCaptchaSolverAPI:
         resp = self.POST(url, data)
         return resp['id']  # return ID
 
+    # submit hcaptcha to system
+    def submit_hcaptcha(self, data):
+        data.update(self._data)
+        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
+        # make request with all data
+        url = '{}/captcha/hcaptcha'.format(BASE_URL)
+        resp = self.POST(url, data)
+        return resp['id']  # return ID
+
     # retrieve captcha
     def retrieve(self, captcha_id = None):
         url = '{}/captcha/{}?access_token={}'.format(BASE_URL, captcha_id, self._access_token)
