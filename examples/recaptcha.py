@@ -28,6 +28,7 @@ def test_api():
     #data['type'] = 1        # 1 - regular, 2 - invisible, 3 - v3, default 1
     #data['v3_action'] = 'v3 recaptcha action'
     #data['v3_min_score'] = '0.3'
+    #data['data_s'] = 'recaptcha data-s parameter used in loading reCAPTCHA'
     #data['user_agent'] = 'Your user agent'
     #data['proxy'] = '123.456.678:3031'
     #data['proxy'] = 'user:pass@123.456.678:3031'
