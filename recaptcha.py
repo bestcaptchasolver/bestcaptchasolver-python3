@@ -25,13 +25,23 @@ def test_api():
 
     # other parameters
     # ----------------------------------------------------------------------
-    #data['type'] = 1        # 1 - regular, 2 - invisible, 3 - v3, default 1
+    # reCAPTCHA type(s) - optional, defaults to 1
+    # ---------------------------------------------
+    # 1 - v2
+    # 2 - invisible
+    # 3 - v3
+    # 4 - enterprise v2
+    # 5 - enterprise v3
+    #
+    # data['type'] = 1
+    #
     #data['v3_action'] = 'v3 recaptcha action'
     #data['v3_min_score'] = '0.3'
     #data['data_s'] = 'recaptcha data-s parameter used in loading reCAPTCHA'
+    #data['cookie_input'] = 'a=b;c=d'
     #data['user_agent'] = 'Your user agent'
-    #data['proxy'] = '123.456.678:3031'
-    #data['proxy'] = 'user:pass@123.456.678:3031'
+    #data['proxy'] = '123.45.67.89:3031'
+    #data['proxy'] = 'user:pass@123.45.67.89:3031'
     #data['affiliate_id'] = 'affiliate_id from /account'
     captcha_id = bcs.submit_recaptcha(data)        # submit captcha first, to get ID
 

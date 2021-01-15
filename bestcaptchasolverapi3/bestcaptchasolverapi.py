@@ -10,12 +10,9 @@ from base64 import b64encode
 USER_AGENT = 'python3Client'
 BASE_URL = 'https://bcsapi.xyz/api'
 SSL_VERIFY = True
-# endpoints
-# -------------------------------------------------------------------------------------------
 
 
 # API class
-# -----------------------------------------
 class BestCaptchaSolverAPI:
     def __init__(self, access_token, timeout = 120):
         self._access_token = access_token

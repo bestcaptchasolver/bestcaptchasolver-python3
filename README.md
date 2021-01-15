@@ -7,7 +7,7 @@ bestcaptchasolver-python3 is a super easy to use bypass captcha python3 API wrap
     git clone https://github.com/bestcaptchasolver/bestcaptchasolver-python3
 
 ## Dependencies
-    pip install requests
+    pip install -r requirements.txt
 
 ## Usage
     # make sure you've changed access_key, page_url, etc in main.py
@@ -60,10 +60,16 @@ For setting the affiliate_id, set the `affiliate_id` parameter
 For recaptcha submission there are two things that are required.
 - page_url
 - site_key
-- type (optional)
+- type (optional, defaults to 1 if not given)
+  - `1` - v2
+  - `2` - invisible
+  - `3` - v3
+  - `4` - enterprise v2
+  - `5` - enterprise v3
 - v3_action (optional)
 - v3_min_score (optional)
 - data_s (optional)
+- cookie_input (optional)
 - user_agent (optional)
 - affiliate_id (optional)
 - proxy (optional)
