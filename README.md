@@ -110,6 +110,15 @@ Use captcha_id to retrieve `solution` for capy
 captcha_id = bcs.submit_hcaptcha({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'})
 ```
 
+**FunCaptcha (Arkose Labs)**
+- page_url
+- s_url
+- site_key
+
+```python
+captcha_id = bcs.submit_funcaptcha({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE', 's_url': 'S_URL_HERE'})
+```
+
 Use captcha_id to retrieve `solution` for hCaptcha
 
 **Retrieve captcha response (all captchas)**
