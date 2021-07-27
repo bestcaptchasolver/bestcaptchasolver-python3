@@ -15,7 +15,9 @@ def test_api():
     print ('Balance: {}'.format(balance))                 # print balance
 
     solution = None
-    captcha_id = bcs.submit_geetest({'domain': 'DOMAIN_HERE', 'gt': 'GT_HERE', 'challenge': 'CHALLENGE_HERE'})
+    d = {'domain': 'DOMAIN_HERE', 'gt': 'GT_HERE', 'challenge': 'CHALLENGE_HERE'}
+    # d['api_server'] = 'GT_DOMAIN_HERE' # optional
+    captcha_id = bcs.submit_geetest(d)
     print ('Waiting for geetest to be solved ...')
     while solution == None:    # while it's still in progress
         resp = bcs.retrieve(captcha_id)

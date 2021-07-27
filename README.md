@@ -85,9 +85,12 @@ completed the captcha. This takes somewhere between 10-80 seconds.
 - domain
 - gt
 - challenge
+- api_server (optional)
 
 ```python
-captcha_id = bcs.submit_geetest({'domain': 'DOMAIN_HERE', 'gt': 'GT_HERE', 'challenge': 'CHALLENGE_HERE'})
+d = {'domain': 'DOMAIN_HERE', 'gt': 'GT_HERE', 'challenge': 'CHALLENGE_HERE'}
+# d['api_server'] = 'GT_DOMAIN_HERE' # optional
+captcha_id = bcs.submit_geetest(d)
 ```
 
 Use captcha_id to retrieve `solution` for geetest
