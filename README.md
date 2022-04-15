@@ -95,6 +95,19 @@ captcha_id = bcs.submit_geetest(d)
 
 Use captcha_id to retrieve `solution` for geetest
 
+**GeetestV4**
+- domain
+- captchaid
+
+**Important:** This is not the captchaid that's in our system that you receive while submitting a captcha. Gather this from HTML source of page with geetestv4 captcha, inside the `<script>` tag you'll find a link that looks like this: https://i.imgur.com/XcZd47y.png
+
+```python
+d = {'domain': 'https://example.com', 'captchaid': '647f5ed2ed8acb4be36784e01556bb71'}
+captcha_id = bcs.submit_geetest_v4(d)
+```
+
+Use captcha_id received from service to retrieve `solution` for geetestv4
+
 **Capy**
 - page_url
 - site_key

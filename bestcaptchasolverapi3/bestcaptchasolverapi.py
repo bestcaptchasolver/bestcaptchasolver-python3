@@ -84,6 +84,15 @@ class BestCaptchaSolverAPI:
         url = '{}/captcha/geetest'.format(BASE_URL)
         resp = self.POST(url, data)
         return resp['id']  # return ID
+    
+    # submit geetest v4 to system
+    def submit_geetest_v4(self, data):
+        data.update(self._data)
+        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
+        # make request with all data
+        url = '{}/captcha/geetestv4'.format(BASE_URL)
+        resp = self.POST(url, data)
+        return resp['id']  # return ID
 
     # submit capy to system
     def submit_capy(self, data):
