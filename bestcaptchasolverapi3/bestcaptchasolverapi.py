@@ -68,6 +68,15 @@ class BestCaptchaSolverAPI:
         return resp['id']  # return ID
 
     # submit recaptcha to system
+    def submit_task(self, data):
+        data.update(self._data)
+        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
+        # make request with all data
+        url = '{}/captcha/task'.format(BASE_URL)
+        resp = self.POST(url, data)
+        return resp['id']  # return ID
+
+    # submit recaptcha to system
     def submit_recaptcha(self, data):
         data.update(self._data)
         if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
@@ -146,7 +155,7 @@ class BestCaptchaSolverAPI:
         return js
 
     def POST(self, url, data):
-        r = self._session.post(url, data=data, headers=self._headers, timeout=self._timeout, verify=SSL_VERIFY)
+        r = self._session.post(url, json=data, headers=self._headers, timeout=self._timeout, verify=SSL_VERIFY)
         js = json.loads(r.text)
         if js['status'] == 'error': raise Exception(js['error'])
         return js

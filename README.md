@@ -126,6 +126,8 @@ Use captcha_id to retrieve `solution` for capy
 captcha_id = bcs.submit_hcaptcha({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'})
 ```
 
+Use captcha_id to retrieve `solution` for hCaptcha
+
 **FunCaptcha (Arkose Labs)**
 - page_url
 - s_url
@@ -135,7 +137,6 @@ captcha_id = bcs.submit_hcaptcha({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITE
 captcha_id = bcs.submit_funcaptcha({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE', 's_url': 'S_URL_HERE'})
 ```
 
-Use captcha_id to retrieve `solution` for hCaptcha
 
 **Retrieve captcha response (all captchas)**
 
