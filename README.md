@@ -123,7 +123,10 @@ Use captcha_id to retrieve `solution` for capy
 - site_key
 
 ```python
-captcha_id = bcs.submit_hcaptcha({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'})
+d = {'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'}
+# d['invisible'] = True
+# d['payload'] = {'rqdata': 'use from abc'}
+captcha_id = bcs.submit_hcaptcha(d)
 ```
 
 Use captcha_id to retrieve `solution` for hCaptcha
@@ -137,6 +140,21 @@ Use captcha_id to retrieve `solution` for hCaptcha
 captcha_id = bcs.submit_funcaptcha({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE', 's_url': 'S_URL_HERE'})
 ```
 
+**Task**
+- template_name
+- page_url
+- variables
+
+```python
+data = {
+    'template_name': 'Login test page',
+    'page_url': 'https://bestcaptchasolver.com/automation/login',
+    'variables': {"username": "xyz", "password": "0000"},
+     # 'proxy': '126.45.34.53:345',   # or 126.45.34.53:123:joe:password
+     # 'user_agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0',    # optional
+}
+captcha_id = bcs.submit_task(data)
+```
 
 **Retrieve captcha response (all captchas)**
 
