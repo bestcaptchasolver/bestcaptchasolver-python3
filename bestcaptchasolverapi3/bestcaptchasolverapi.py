@@ -14,7 +14,7 @@ SSL_VERIFY = True
 
 # API class
 class BestCaptchaSolverAPI:
-    def __init__(self, access_token, timeout = 120):
+    def __init__(self, access_token, timeout=120):
         self._access_token = access_token
         self._data = {
             'access_token': access_token
@@ -75,6 +75,17 @@ class BestCaptchaSolverAPI:
         url = '{}/captcha/task'.format(BASE_URL)
         resp = self.POST(url, data)
         return resp['id']  # return ID
+
+    # submit recaptcha to system
+    def task_push_variables(self, captcha_id, push_variables: dict):
+        d = dict(pushVariables=push_variables)
+        d.update(self._data)
+        # make request with all data
+        url = f'{BASE_URL}/captcha/task/pushVariables/{captcha_id}'
+        resp = self.POST(url, d)
+        if 'error' in resp:
+            raise Exception(resp['error'])
+        return True
 
     # submit recaptcha to system
     def submit_recaptcha(self, data):
