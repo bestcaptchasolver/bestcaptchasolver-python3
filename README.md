@@ -127,7 +127,7 @@ Use captcha_id to retrieve `solution` for capy
 d = {'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'}
 # d['invisible'] = True
 # d['payload'] = {'rqdata': 'gather from page source, unique with each submission'}
-# d['domain'] = 'challenges.cloudflare.com'
+# d['domain'] = 'challenges.cloudflare.com'     # optional
 captcha_id = bcs.submit_hcaptcha(d)
 ```
 
@@ -140,6 +140,18 @@ Use captcha_id to retrieve `solution` for hCaptcha
 
 ```python
 captcha_id = bcs.submit_funcaptcha({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE', 's_url': 'S_URL_HERE'})
+```
+
+**Turnstile (Cloudflare)**
+- page_url
+- site_key
+
+```python
+d = {'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'}
+# d['action'] = 'taken from page source, optional'
+# d['cdata'] = 'taken from page source, optional'
+# d['domain'] = 'challenges.cloudflare.com' # optional
+captcha_id = bcs.submit_turnstile(d)
 ```
 
 **Task**

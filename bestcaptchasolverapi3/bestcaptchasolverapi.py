@@ -29,11 +29,11 @@ class BestCaptchaSolverAPI:
 
     # get account balance
     def account_balance(self):
-        url = '{}/user/balance?access_token={}'.format(BASE_URL, self._access_token)
+        url = f'{BASE_URL}/user/balance?access_token={self._access_token}'
         resp = self.GET(url)
-        return '${}'.format(resp['balance'])
+        return f"${resp['balance']}"
 
-    # solve normal captcha
+    # solve classic image captcha
     def submit_image_captcha(self, opts):
         data = {}
         data.update(self._data)
@@ -43,20 +43,20 @@ class BestCaptchaSolverAPI:
         if 'case_sensitive' in opts:
             print ('case_sensitive is deprecated, use is_case instead')
             if opts['case_sensitive']: data['is_case'] = True
-        if 'is_case' in opts:
-            if opts['is_case']: data['is_case'] = True
-        if 'is_phrase' in opts:
-            if opts['is_phrase']: data['is_phrase'] = True
-        if 'is_math' in opts:
-            if opts['is_math']: data['is_math'] = True
+        if 'is_case' in opts and opts['is_case']:
+            data['is_case'] = True
+        if 'is_phrase' in opts and opts['is_phrase']:
+            data['is_phrase'] = True
+        if 'is_math' in opts and opts['is_math']:
+            data['is_math'] = True
         if 'alphanumeric' in opts: data['alphanumeric'] = opts['alphanumeric']
         if 'minlength' in opts: data['minlength'] = opts['minlength']
         if 'maxlength' in opts: data['maxlength'] = opts['maxlength']
 
         # affiliate
-        if 'affiliate_id' in opts:
-            if opts['affiliate_id']: data['affiliate_id'] = opts['affiliate_id']
-        url = '{}/captcha/image'.format(BASE_URL)
+        if 'affiliate_id' in opts and opts['affiliate_id']:
+            data['affiliate_id'] = opts['affiliate_id']
+        url = f'{BASE_URL}/captcha/image'
 
         if os.path.exists(image_path):
             with open(image_path, 'rb') as f:
@@ -70,9 +70,7 @@ class BestCaptchaSolverAPI:
     # submit recaptcha to system
     def submit_task(self, data):
         data.update(self._data)
-        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
-        # make request with all data
-        url = '{}/captcha/task'.format(BASE_URL)
+        url = f'{BASE_URL}/captcha/task'
         resp = self.POST(url, data)
         return resp['id']  # return ID
 
@@ -80,7 +78,6 @@ class BestCaptchaSolverAPI:
     def task_push_variables(self, captcha_id, push_variables: dict):
         d = dict(pushVariables=push_variables)
         d.update(self._data)
-        # make request with all data
         url = f'{BASE_URL}/captcha/task/pushVariables/{captcha_id}'
         resp = self.POST(url, d)
         if 'error' in resp:
@@ -90,60 +87,54 @@ class BestCaptchaSolverAPI:
     # submit recaptcha to system
     def submit_recaptcha(self, data):
         data.update(self._data)
-        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
-        # make request with all data
-        url = '{}/captcha/recaptcha'.format(BASE_URL)
+        url = f'{BASE_URL}/captcha/recaptcha'
+        resp = self.POST(url, data)
+        return resp['id']  # return ID
+
+    def submit_turnstile(self, data):
+        data.update(self._data)
+        url = f'{BASE_URL}/captcha/turnstile'
         resp = self.POST(url, data)
         return resp['id']  # return ID
 
     # submit geetest to system
     def submit_geetest(self, data):
         data.update(self._data)
-        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
-        # make request with all data
-        url = '{}/captcha/geetest'.format(BASE_URL)
+        url = f'{BASE_URL}/captcha/geetest'
         resp = self.POST(url, data)
         return resp['id']  # return ID
     
     # submit geetest v4 to system
     def submit_geetest_v4(self, data):
         data.update(self._data)
-        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
-        # make request with all data
-        url = '{}/captcha/geetestv4'.format(BASE_URL)
+        url = f'{BASE_URL}/captcha/geetestv4'
         resp = self.POST(url, data)
         return resp['id']  # return ID
 
     # submit capy to system
     def submit_capy(self, data):
         data.update(self._data)
-        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
-        # make request with all data
-        url = '{}/captcha/capy'.format(BASE_URL)
+        url = f'{BASE_URL}/captcha/capy'
         resp = self.POST(url, data)
         return resp['id']  # return ID
 
     # submit hcaptcha to system
     def submit_hcaptcha(self, data):
         data.update(self._data)
-        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
-        # make request with all data
-        url = '{}/captcha/hcaptcha'.format(BASE_URL)
+        url = f'{BASE_URL}/captcha/hcaptcha'
         resp = self.POST(url, data)
         return resp['id']  # return ID
 
     # submit funcaptcha to system
     def submit_funcaptcha(self, data):
         data.update(self._data)
-        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
-        # make request with all data
-        url = '{}/captcha/funcaptcha'.format(BASE_URL)
+        url = f'{BASE_URL}/captcha/funcaptcha'
         resp = self.POST(url, data)
         return resp['id']  # return ID
 
     # retrieve captcha
     def retrieve(self, captcha_id = None):
-        url = '{}/captcha/{}?access_token={}'.format(BASE_URL, captcha_id, self._access_token)
+        url = f'{BASE_URL}/captcha/{captcha_id}?access_token={self._access_token}'
         resp = self.GET(url)
         try:
             if resp['status'] == 'pending': return {'text': None, 'gresponse': None, 'solution': None}
@@ -155,7 +146,7 @@ class BestCaptchaSolverAPI:
     # set captcha bad, if given id, otherwise set the last one
     def set_captcha_bad(self, captcha_id):
         data = dict(self._data)
-        url = '{}/captcha/bad/{}'.format(BASE_URL, captcha_id)
+        url = f'{BASE_URL}/captcha/bad/{captcha_id}'
         resp = self.POST(url, data)
         return resp['status']
 
@@ -166,6 +157,7 @@ class BestCaptchaSolverAPI:
         return js
 
     def POST(self, url, data):
+        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
         r = self._session.post(url, json=data, headers=self._headers, timeout=self._timeout, verify=SSL_VERIFY)
         js = json.loads(r.text)
         if js['status'] == 'error': raise Exception(js['error'])
