@@ -21,6 +21,9 @@ def test_api():
     # d['action'] = 'taken from page source, optional'
     # d['cdata'] = 'taken from page source, optional'
     # d['domain'] = 'challenges.cloudflare.com'
+    # d['user_agent'] = 'your user agent'
+    # d['proxy'] = 'user:pass@123.45.67.89:3031'
+    # d['affiliate_id'] = 'your affiliate id'
     captcha_id = bcs.submit_turnstile(d)
     while solution is None:  # while it's still in progress
         resp = bcs.retrieve(captcha_id)

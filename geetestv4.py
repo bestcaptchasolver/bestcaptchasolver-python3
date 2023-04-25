@@ -17,6 +17,9 @@ def test_api():
 
     solution = None
     d = {'domain': 'https://example.com', 'captchaid': '647f5ed2ed8acb4be36784e01556bb71'}
+    # d['user_agent'] = 'your user agent'
+    # d['proxy'] = 'user:pass@123.45.67.89:3031'
+    # d['affiliate_id'] = 'your affiliate id'
     captcha_id = bcs.submit_geetest_v4(d)
     print('Waiting for geetestv4 to be solved ...')
     while solution is None:    # while it's still in progress

@@ -16,7 +16,7 @@ def test_api():
 
     print ('Waiting for capy to be solved ...')
     solution = None
-    captcha_id = bcs.submit_capy({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'})
+    captcha_id = bcs.submit_capy({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'}) # , 'proxy': 'user:pass@123.45.67.89:3031', 'user_agent': 'your user agent'})
     while solution is None:  # while it's still in progress
         resp = bcs.retrieve(captcha_id)
         solution = resp['solution']

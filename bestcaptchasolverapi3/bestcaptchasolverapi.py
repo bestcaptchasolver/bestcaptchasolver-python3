@@ -157,7 +157,7 @@ class BestCaptchaSolverAPI:
         return js
 
     def POST(self, url, data):
-        if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
+        # if 'proxy' in data: data['proxy_type'] = 'HTTP'  # add proxy, if necessary
         r = self._session.post(url, json=data, headers=self._headers, timeout=self._timeout, verify=SSL_VERIFY)
         js = json.loads(r.text)
         if js['status'] == 'error': raise Exception(js['error'])

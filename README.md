@@ -87,10 +87,14 @@ completed the captcha. This takes somewhere between 10-80 seconds.
 - gt
 - challenge
 - api_server (optional)
+- user_agent (optional)
+- proxy (optional)
 
 ```python
 d = {'domain': 'DOMAIN_HERE', 'gt': 'GT_HERE', 'challenge': 'CHALLENGE_HERE'}
 # d['api_server'] = 'GT_DOMAIN_HERE' # optional
+# d['user_agent'] = 'your user agent'
+# d['proxy'] = 'user:pass@123.45.67.89:3031'  # optional
 captcha_id = bcs.submit_geetest(d)
 ```
 
@@ -99,11 +103,15 @@ Use captcha_id to retrieve `solution` for geetest
 **GeetestV4**
 - domain
 - captchaid
+- user_agent (optional)
+- proxy (optional)
 
 **Important:** This is not the captchaid that's in our system that you receive while submitting a captcha. Gather this from HTML source of page with geetestv4 captcha, inside the `<script>` tag you'll find a link that looks like this: https://i.imgur.com/XcZd47y.png
 
 ```python
 d = {'domain': 'https://example.com', 'captchaid': '647f5ed2ed8acb4be36784e01556bb71'}
+# d['user_agent'] = 'your user agent'
+# d['proxy'] = 'user:pass@123.45.67.89:3031'      # optional
 captcha_id = bcs.submit_geetest_v4(d)
 ```
 
@@ -112,9 +120,11 @@ Use captcha_id received from service to retrieve `solution` for geetestv4
 **Capy**
 - page_url
 - site_key
+- user_agent (optional)
+- proxy (optional)
 
 ```python
-captcha_id = bcs.submit_capy({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'})
+captcha_id = bcs.submit_capy({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'}) # , 'proxy': 'user:pass@123.45.67.89:3031', 'user_agent': 'your user agent'})
 ```
 
 Use captcha_id to retrieve `solution` for capy
@@ -122,12 +132,19 @@ Use captcha_id to retrieve `solution` for capy
 **hCaptcha**
 - page_url
 - site_key
+- invisible (optional)
+- payload (optional)
+- domain (optional)
+- user_agent (optional)
+- proxy (optional)
 
 ```python
 d = {'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'}
 # d['invisible'] = True
 # d['payload'] = {'rqdata': 'gather from page source, unique with each submission'}
-# d['domain'] = 'challenges.cloudflare.com'     # optional
+# d['domain'] = 'hcaptcha.com'                    # optional
+# d['user_agent'] = 'your user agent'             # optional
+# d['proxy'] = 'user:pass@123.45.67.89:3031'      # optional
 captcha_id = bcs.submit_hcaptcha(d)
 ```
 
@@ -137,20 +154,36 @@ Use captcha_id to retrieve `solution` for hCaptcha
 - page_url
 - s_url
 - site_key
+- data (optional)
+- user_agent (optional)
+- proxy (optional)
 
 ```python
-captcha_id = bcs.submit_funcaptcha({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE', 's_url': 'S_URL_HERE'})
+captcha_id = bcs.submit_funcaptcha(
+    {'page_url': 'https://abc.com', 'site_key': '11111111-1111-1111-1111-111111111111',
+     's_url': 'https://api.arkoselabs.com'}
+     # 'data': '{"x":"y"}', # optional
+     # 'user_agent': 'your user agent',
+     # 'proxy': 'user:pass@123.45.67.89:3031'
+)
 ```
 
 **Turnstile (Cloudflare)**
 - page_url
 - site_key
+- action (optional)
+- cdata (optional)
+- domain (optional)
+- user_agent (optional)
+- proxy (optional)
 
 ```python
 d = {'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'}
 # d['action'] = 'taken from page source, optional'
 # d['cdata'] = 'taken from page source, optional'
 # d['domain'] = 'challenges.cloudflare.com' # optional
+# d['user_agent'] = 'your user agent'       # optional
+# d['proxy'] = 'user:pass@123.45.67.89:3031'
 captcha_id = bcs.submit_turnstile(d)
 ```
 
@@ -164,7 +197,7 @@ data = {
     'template_name': 'Login test page',
     'page_url': 'https://bestcaptchasolver.com/automation/login',
     'variables': {"username": "xyz", "password": "0000"},
-     # 'proxy': '126.45.34.53:345',   # or 126.45.34.53:123:joe:password
+     # 'proxy': '126.45.34.53:345',   # or user:pass@123.45.67.89:3031
      # 'user_agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0',    # optional
 }
 captcha_id = bcs.submit_task(data)
