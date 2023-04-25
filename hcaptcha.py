@@ -13,7 +13,7 @@ def test_api():
     # check account balance
     # ---------------------------
     balance = bcs.account_balance()                       # get account balance
-    print ('Balance: {}'.format(balance))                 # print balance
+    print(f'Balance: {balance}')
 
     print ('Waiting for hCaptcha to be solved ...')
     solution = None
@@ -35,7 +35,7 @@ def main():
     try:
         test_api()
     except Exception as ex:
-        print ('[!] Error occured: {}'.format(ex))
+        print(f'[!] Error occurred: {ex}')
 
 if __name__ == "__main__":
     main()

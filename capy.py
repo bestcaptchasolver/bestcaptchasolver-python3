@@ -12,12 +12,12 @@ def test_api():
     # check account balance
     # ---------------------------
     balance = bcs.account_balance()                       # get account balance
-    print ('Balance: {}'.format(balance))                 # print balance
+    print(f'Balance: {balance}')
 
     print ('Waiting for capy to be solved ...')
     solution = None
     captcha_id = bcs.submit_capy({'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'})
-    while solution == None:  # while it's still in progress
+    while solution is None:  # while it's still in progress
         resp = bcs.retrieve(captcha_id)
         solution = resp['solution']
         sleep(10)  # sleep for 10 seconds and recheck
@@ -30,7 +30,7 @@ def main():
     try:
         test_api()
     except Exception as ex:
-        print ('[!] Error occured: {}'.format(ex))
+        print(f'[!] Error occurred: {ex}')
 
 if __name__ == "__main__":
     main()

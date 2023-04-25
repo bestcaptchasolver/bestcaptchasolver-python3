@@ -12,12 +12,10 @@ def test_api():
     # check account balance
     # ---------------------------
     balance = bcs.account_balance()                       # get account balance
-    print ('Balance: {}'.format(balance))                 # print balance
+    print(f'Balance: {balance}')
 
     print ('Solving image captcha ...')
-    data = {}
-    data['image'] = '../captcha.jpg'
-
+    data = {'image': '../captcha.jpg'}
     # optional parameters
     # -------------------
     # data['is_case'] = True, default: False
@@ -31,18 +29,18 @@ def test_api():
     id = bcs.submit_image_captcha(data)  # submit image captcha (case_sensitive param optional)
     image_text = None
     # None is returned if completion is still in pending
-    while image_text == None:
+    while image_text is None:
         image_text = bcs.retrieve(id)['text']  # get the image text using the ID
         sleep(5)
 
-    print ('Captcha text: {}'.format(image_text))
+    print(f'Captcha text: {image_text}')
 
 # main method
 def main():
     try:
         test_api()
     except Exception as ex:
-        print ('[!] Error occured: {}'.format(ex))
+        print(f'[!] Error occurred: {ex}')
 
 if __name__ == "__main__":
     main()

@@ -13,7 +13,7 @@ def test_api():
     # check account balance
     # ---------------------------
     balance = bcs.account_balance()                       # get account balance
-    print('Balance: {}'.format(balance))                 # print balance
+    print(f'Balance: {balance}')
 
     solution = None
     d = {'domain': 'https://example.com', 'captchaid': '647f5ed2ed8acb4be36784e01556bb71'}
@@ -33,7 +33,7 @@ def main():
     try:
         test_api()
     except Exception as ex:
-        print ('[!] Error occured: {}'.format(ex))
+        print(f'[!] Error occurred: {ex}')
 
 
 if __name__ == "__main__":
