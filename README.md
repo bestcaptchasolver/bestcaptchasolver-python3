@@ -68,6 +68,7 @@ For recaptcha submission there are two things that are required.
   - `5` - enterprise v3
 - v3_action (optional)
 - v3_min_score (optional)
+- domain (optional) - i.e `www.google.com` or `recaptcha.net`
 - data_s (optional)
 - cookie_input (optional)
 - user_agent (optional)
@@ -125,7 +126,8 @@ Use captcha_id to retrieve `solution` for capy
 ```python
 d = {'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'}
 # d['invisible'] = True
-# d['payload'] = {'rqdata': 'use from abc'}
+# d['payload'] = {'rqdata': 'gather from page source, unique with each submission'}
+# d['domain'] = 'challenges.cloudflare.com'
 captcha_id = bcs.submit_hcaptcha(d)
 ```
 

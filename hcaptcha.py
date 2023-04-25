@@ -20,6 +20,7 @@ def test_api():
     d = {'page_url': 'PAGE_URL_HERE', 'site_key': 'SITEKEY_HERE'}
     # d['invisible'] = True
     # d['payload'] = {'rqdata': 'use from abc'}
+    # d['domain'] = 'challenges.cloudflare.com'
     captcha_id = bcs.submit_hcaptcha(d)
     while solution is None:  # while it's still in progress
         resp = bcs.retrieve(captcha_id)

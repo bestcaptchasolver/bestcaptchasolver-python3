@@ -37,6 +37,7 @@ def test_api():
     #
     #data['v3_action'] = 'v3 recaptcha action'
     #data['v3_min_score'] = '0.3'
+    #data['domain'] = 'www.google.com'
     #data['data_s'] = 'recaptcha data-s parameter used in loading reCAPTCHA'
     #data['cookie_input'] = 'a=b;c=d'
     #data['user_agent'] = 'Your user agent'
