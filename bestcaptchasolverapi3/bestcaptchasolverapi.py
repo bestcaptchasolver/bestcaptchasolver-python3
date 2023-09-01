@@ -61,6 +61,11 @@ class BestCaptchaSolverAPI:
         if os.path.exists(image_path):
             with open(image_path, 'rb') as f:
                 data['b64image'] = b64encode(f.read())
+                # it might require decoding of bytes to string
+                try:
+                    data['b64image'] = data['b64image'].decode('utf-8')
+                except:
+                    pass
         else:
             data['b64image'] = image_path  # should be b64 already
 
